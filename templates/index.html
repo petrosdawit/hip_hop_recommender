@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta name='description' content=''>
+    <meta name='author' content=''>
+
+    <title>Hip Hop Spotify Playlist Recommender</title>
+
+    <!-- Add jQuery library -->
+    <script type='text/javascript' src='http://code.jquery.com/jquery-latest.min.js'></script>
+
+    <!-- Latest compiled and minified CSS -->
+  	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' integrity='sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7' crossorigin='anonymous'>
+
+  	<!-- Optional theme -->
+  	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css' integrity='sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r' crossorigin='anonymous'>
+
+  	<!-- Latest compiled and minified JavaScript -->
+  	<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js' integrity='sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS' crossorigin='anonymous'></script>
+
+  	<!-- Font Awesome Icons -->
+  	<script src='https://use.fontawesome.com/c3fad400d0.js'></script>
+
+    <!-- Custom Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Muli' rel='stylesheet'>
+
+    <!-- Index css -->
+    <link rel='stylesheet' text='text/css' href='../static/css/index.css'>
+
+</head>
+
+<body>
+  <nav class='navbar navbar-default'>
+    <div class='container-fluid' style='background-color: #6AE368;'>
+      <div class-'navbar-header'>
+        <a class='navbar-brand'>Welcome {{profile_info['display_name']}}</a>
+        <a href="{{profile_info['external_urls']['spotify']}}" targer='_blank'> <img class='img-circle' href='' src="{{profile_info['images'][0]['url']}}" width='50px' height='50px' border-radius:'50%'> </a>
+      </div>
+      <div>
+        <ul class='nav navbar-nav navbar-right'>
+          <li>
+            <a class='page-scroll' href='http://127.0.0.1:8080/'>Home</a>
+          </li>
+          <li>
+            <a class='page-scroll' href='/created_playlists'>Created Playlists</a>
+          </li>
+          <li>
+            <a class='page-scroll' target='_blank' href='https://github.com/petrosdawit/spotify_playlist_recommender'>Github Project</a>
+          </li>
+          <li>
+            <a class='page-scroll' target='_blank' href='https://www.linkedin.com/in/petros-dawit-b46284b5'>Developed by Petros Dawit</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class='container' style='margin-top: 100px;'>
+      <div class='row'>
+        <div class='col-md-2'></div>
+        <div class='col-md-8'>
+          <div class='jumbotron' style='background-color:white;'>
+            <h3 class='text-center'><b>Spotify Hip Hop Playlist Recommender</b></h3>
+            <p>
+              This project was designed to incorporate machine learning that I learned from my
+              <a href='https://cs.brown.edu/courses/csci1951-a/'> CS1951-a: Data Science </a> course I took
+              at Brown University. The application can recommend you songs from its 3000+ hip hop song database through
+              unsupervised or supervised learning and create a playlist on Spotify for you. You can
+              edit your created playlists here as well. <b> Click an option to get started! </b>
+            </p>
+          </div>
+        </div>
+        <div class='col-md-2'></div>
+      </div>
+    </div>
+  </div>
+  <br> <br>
+  <div class='container'>
+    <div class='row text-center'>
+      <a href='/supervised'>
+        <div class='col-sm-6 jumbotron' style='border-top:10px solid #999;border-bottom:10px solid #999;'>
+          <img src='../static/images/supervisedknn.png' width='250px' height='250px'>
+          <br> <br> <br>
+          <p> <span style='color:black; text-decoration: none;'> The <b>supervised</b> learning will take longer time. You will be asked to rate 50 songs with
+          a score from 1-5. You have the option to skip songs if you don't want to rate, but you must
+          rate 50. Once done, the algorithm will create the playlist for you. This option will achieve
+          better results than the unsupervised algorithm. <b>Click the box.</b> </span> </p>
+        </div>
+      </a>
+      <a href='/unsupervised'>
+        <div class='col-sm-5 col-sm-offset-1 jumbotron' style='border-top:10px solid #999;border-bottom:10px solid #999;'>
+          <img src='../static/images/unsupervisedkmeans.png' width='250px' height='250px'>
+          <br> <br> <br>
+          <p> <span style='color:black; text-decoration: none;'> The <b>unsupervised</b> learning will prompt you a search bar where you can add songs you like
+          and have the algorithm fetch songs it thinks you would like and pick and create your
+          playlist. <b> Click the box. </b> </span> </p>
+        </div>
+      </a>
+    </div>
+  </div>
+  <footer>
+		<div class ='container'>
+			<div class = 'text-center footer-text' id='footer-end'>
+				<br>
+				<br>
+				<a href='mailto:petros_dawit@brown.edu'><i class='fa fa-envelope fa-2x' aria-hidden='true'></i></a>
+    			<a href='https://www.linkedin.com/in/petros-dawit-b46284b5'><i class='fa fa-linkedin-square fa-2x' aria-hidden='true'></i></a>
+    			<a href='https://github.com/petrosdawit'><i class='fa fa-github-square fa-2x' aria-hidden='true'></i></a><br>
+    			<em> &copy; 2017 Petros Dawit</em> <br>
+    			<p> </p> <br> <p> </p>
+			</div>
+		</div>
+	</footer>
+
+
+</body>
+
+</html>

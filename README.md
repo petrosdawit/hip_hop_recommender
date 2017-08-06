@@ -1,1 +1,2 @@
-# hip_hop_recommender
+# spotify_playlist_recommender
+Hip Hop Spotify Playlist Recommender (in progress)

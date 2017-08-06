@@ -1,0 +1,8 @@
+.git
+bin
+include
+lib
+pip-selfcheck.json
+__pycache__
+spotify_recommender_front_mock_up.png
+serverCopy.py

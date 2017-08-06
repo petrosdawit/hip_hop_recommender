@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta name='description' content=''>
+    <meta name='author' content=''>
+
+    <title>Hip Hop Spotify Playlist Recommender</title>
+
+    <!-- Add jQuery library -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+  	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' integrity='sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7' crossorigin='anonymous'>
+
+  	<!-- Optional theme -->
+  	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css' integrity='sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r' crossorigin='anonymous'>
+
+  	<!-- Latest compiled and minified JavaScript -->
+  	<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js' integrity='sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS' crossorigin='anonymous'></script>
+
+  	<!-- Font Awesome Icons -->
+  	<script src='https://use.fontawesome.com/c3fad400d0.js'></script>
+
+    <!-- Custom Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Muli' rel='stylesheet'>
+
+    <!-- Index css -->
+    <link rel='stylesheet' text='text/css' href='../static/css/index.css'>
+    <link rel='stylesheet' text='text/css' href='../static/css/unsupervised.css'>
+    {# <!-- SocketIO -->
+    <script type="text/javascript" src='http://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js'></script>#}
+
+    <!--JS-->
+    <script>
+      $( document ).ready(function() {
+        $('#input_field').keyup(function(e) {
+          if(e.keycode!=38 || e.keycode!=40){
+            if ($('#input_field').val().length >= 2){
+              $.post('/unsupervised/autocomplete', { word: $('#input_field').val() }, function(data) {
+                $('#input_field').autocomplete({
+                  source: function(request, response) {
+                    var results = $.ui.autocomplete.filter(data, request.term);
+                    response(results.slice(0, 7));
+                  }
+                });
+              });
+            }
+          }
+        });
+        $('#submission').on('click', function(){
+          $.post('/unsupervised/cluster', { song : $('#input_field').val() }, function(data) {
+            $('#song_list').html(data);
+          });
+        });
+      });
+    </script>
+
+</head>
+
+<body>
+  <nav class='navbar navbar-default'>
+    <div class='container-fluid' style='background-color: #6AE368;'>
+      <div class-'navbar-header'>
+        <a class='navbar-brand'>Welcome {{profile_info['display_name']}}</a>
+        <a href='{{profile_info['external_urls']['spotify']}}' targer='_blank'> <img class='img-circle' href='' src='{{profile_info['images'][0]['url']}}' width='50px' height='50px' border-radius:'50%'> </a>
+      </div>
+      <div>
+        <ul class='nav navbar-nav navbar-right'>
+          <li>
+            <a class='page-scroll' href='http://127.0.0.1:8080/'>Home</a>
+          </li>
+          <li>
+            <a class='page-scroll' href='/created_playlists'>Created Playlists</a>
+          </li>
+          <li>
+            <a class='page-scroll' target='_blank' href='https://github.com/petrosdawit/spotify_playlist_recommender'>Github Project</a>
+          </li>
+          <li>
+            <a class='page-scroll' target='_blank' href='https://www.linkedin.com/in/petros-dawit-b46284b5'>Developed by Petros Dawit</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+  <div class='container'>
+    <div class='row'>
+      <div class='col-sm-6 col-sm-offset-3'>
+        <div class='input-group stylish-input-group'>
+          <div class ='ui-widget'>
+            <input list='song_names' type='text' class='form-control' name='song_suggestions' id='input_field' placeholder='Type in a Song' value=''>
+          </div>
+          <span class='input-group-addon'>
+            <button type='submit' id='submission'>
+              <span class='glyphicon glyphicon-search'></span>
+            </button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class='container' id='song_list'>
+    <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
+    <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
+  </div>
+
+  <footer>
+		<div class ='container'>
+			<div class = 'text-center footer-text' id='footer-end'>
+				<br>
+				<br>
+				<a href='mailto:petros_dawit@brown.edu'><i class='fa fa-envelope fa-2x' aria-hidden='true'></i></a>
+    			<a href='https://www.linkedin.com/in/petros-dawit-b46284b5'><i class='fa fa-linkedin-square fa-2x' aria-hidden='true'></i></a>
+    			<a href='https://github.com/petrosdawit'><i class='fa fa-github-square fa-2x' aria-hidden='true'></i></a><br>
+    			<em> &copy; 2017 Petros Dawit</em> <br>
+    			<p> </p> <br> <p> </p>
+			</div>
+		</div>
+	</footer>
+
+
+</body>
+
+</html>

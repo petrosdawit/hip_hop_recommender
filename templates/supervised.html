@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta name='description' content=''>
+    <meta name='author' content=''>
+
+    <title>Hip Hop Spotify Playlist Recommender</title>
+
+    <!-- Add jQuery library -->
+    <script type='text/javascript' src='http://code.jquery.com/jquery-latest.min.js'></script>
+
+    <!-- Latest compiled and minified CSS -->
+  	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' integrity='sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7' crossorigin='anonymous'>
+
+  	<!-- Optional theme -->
+  	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css' integrity='sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r' crossorigin='anonymous'>
+
+  	<!-- Latest compiled and minified JavaScript -->
+  	<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js' integrity='sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS' crossorigin='anonymous'></script>
+
+  	<!-- Font Awesome Icons -->
+  	<script src='https://use.fontawesome.com/c3fad400d0.js'></script>
+
+    <!-- Custom Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Muli' rel='stylesheet'>
+
+    <!-- Index css -->
+    <link rel='stylesheet' text='text/css' href='../static/css/index.css'>
+    <link rel='stylesheet' text='text/css' href='../static/css/supervised.css'>
+
+    <!--JS-->
+    <script>
+      $( document ).ready(function() {
+        console.log('{{sample_songs}}');
+        var grid = [];
+        var _switch = 0;
+        {% for i in 0..10 %}
+          -{{i}}
+          var trOdd = $('<tr>').addClass('odd');
+          var trEven = $('<tr>').addClass('even');
+
+          if (_switch == 0){
+            {% if i % 2 != 0 %}
+              grid.push(trEven);
+            } else {
+              grid.push(trOdd);
+            }
+          }
+
+          if (_switch == 1){
+            {% if i % 2 != 0 %}
+              grid.push(trOdd);
+            } else {
+              grid.push(trEven);
+            }
+          }
+
+          {% for i in 0..5 %}
+            str =
+            "<td>" +
+              "<div class='table'>" +
+                "<div class='radio_button'>" +
+                  "<label class='radio-inline'>" +
+                    "<input type='radio' name='rank' value='1'>1<br>" +
+                  "</label>" +
+                  "<label class='radio-inline'>" +
+                    "<input type='radio' name='rank' value='2'>2<br>" +
+                  "</label>" +
+                  "<label class='radio-inline'>" +
+                    "<input type='radio' name='rank' value='3'>3  <br>" +
+                  "</label>" +
+                  "<label class='radio-inline'>" +
+                    "<input type='radio' name='rank' value='4'>4  <br>" +
+                  "</label>" +
+                  "<label class='radio-inline'>" +
+                    "<input type='radio' name='rank' value='5'>5  <br>" +
+                  "</label>" +
+                "</div>" +
+              "</div>" +
+            "</td>"
+            grid[ {{i}} ].append(str);
+            console.log('hi')
+            console.log('{{sample_songs[ {{i}} * 10 + {{j}} ]}}')
+          }
+
+          if (_switch == 0) {
+            _switch = 1;
+          } else {
+            _switch = 0;
+          }
+        {% endfor %}
+
+        $('tbody').append(grid);
+        $( "radio").css("display: inline-block;")
+        $( ".odd td:odd" ).css( "background-color", "#333" );
+        $( ".odd td:even" ).css( "background-color", "#444" );
+        $( ".even td:odd" ).css( "background-color", "#555" );
+        $( ".even td:even" ).css( "background-color", "#667" );
+
+        $('#sample_songs').css({
+          'border-collapse' : 'collapse',
+          'border' : 'solid 5px #667'
+        });
+
+        $('td').css({
+          'width'  : '250px',
+          'height' : '250px'
+        });
+
+      });
+    </script>
+
+</head>
+
+<body>
+  <nav class='navbar navbar-default'>
+    <div class='container-fluid' style='background-color: #6AE368;'>
+      <div class-'navbar-header'>
+        <a class='navbar-brand'>Welcome {{profile_info['display_name']}}</a>
+        <a href="{{profile_info['external_urls']['spotify']}}" targer='_blank'> <img class='img-circle' href='' src="{{profile_info['images'][0]['url']}}" width='50px' height='50px' border-radius:'50%'> </a>
+      </div>
+      <div>
+        <ul class='nav navbar-nav navbar-right'>
+          <li>
+            <a class='page-scroll' href='http://127.0.0.1:8080/'>Home</a>
+          </li>
+          <li>
+            <a class='page-scroll' href='/created_playlists'>Created Playlists</a>
+          </li>
+          <li>
+            <a class='page-scroll' target='_blank' href='https://github.com/petrosdawit/spotify_playlist_recommender'>Github Project</a>
+          </li>
+          <li>
+            <a class='page-scroll' target='_blank' href='https://www.linkedin.com/in/petros-dawit-b46284b5'>Developed by Petros Dawit</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <br> <br> <br>
+
+  <div class='container'>
+  <table id="sample_songs" style='color:white;'>
+  <tbody></tbody>
+  </table>
+  </div>
+
+  <footer>
+		<div class ='container'>
+			<div class = 'text-center footer-text' id='footer-end'>
+				<br>
+				<br>
+				<a href='mailto:petros_dawit@brown.edu'><i class='fa fa-envelope fa-2x' aria-hidden='true'></i></a>
+    			<a href='https://www.linkedin.com/in/petros-dawit-b46284b5'><i class='fa fa-linkedin-square fa-2x' aria-hidden='true'></i></a>
+    			<a href='https://github.com/petrosdawit'><i class='fa fa-github-square fa-2x' aria-hidden='true'></i></a><br>
+    			<em> &copy; 2017 Petros Dawit</em> <br>
+    			<p> </p> <br> <p> </p>
+			</div>
+		</div>
+	</footer>
+
+
+</body>
+
+</html>

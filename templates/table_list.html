@@ -1,0 +1,83 @@
+<br> <br>
+<div class ='container'>
+  <div class = 'pull-right'>
+    <button type='button' class='btn btn-success' onclick="$.post('/create_playlist', {playlist : document.getElementsByClassName('playlist')[0].textContent }, function(data){ $('#song_list').html(data); });">Create Playlist</button>
+    <button type='button' class='btn btn-warning' style='padding-left:10px;'onclick="$('#song_list').html('<br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>');">Clear</button>
+  </div>
+</div>
+<br>
+<table class='table table-bordered table-striped'>
+  <thead style='color:white;'>
+    <tr>
+      <th>Song</th>
+      <th>Artist</th>
+      <th>Album Name</th>
+      <th>Album Image</th>
+      <th>Song Url Preview</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+  <div class='playlist'>
+    <span style="display: none;">{{playlist}}</span>
+  </div>
+  <tbody>
+  {% for song in playlist %}
+    <div class='{{ song[1] }}'>
+      <span style="display: none;">{{song}}</span>
+    </div>
+    {% if loop.index % 2 == 0 %}
+      <tr style='color:white;'>
+        <td>
+           {{ song[2] }}
+        </td>
+        <td>
+          {{ song[3] }}
+        </td>
+        <td>
+          {{ song[4] }}
+        </td>
+        <td>
+          <img src='{{ song[5] }}' width='200px' height='200px' style='position:relative; top:0px;'/>
+        </td>
+        <td>
+          <audio controls>
+            <source src='{{ song[6] }}'/>
+          </audio>
+        </td>
+        <td>
+          <button type='button' id='delete' class='btn btn-danger' onclick="$.post('/unsupervised/remove', {song : document.getElementsByClassName('{{ song[1] }}')[0].textContent, playlist : document.getElementsByClassName('playlist')[0].textContent }, function(data){ $('#song_list').html(data); });"> Delete </button>
+        </td>
+      </tr>
+    {% else %}
+      <tr>
+        <td>
+           {{ song[2] }}
+        </td>
+        <td>
+          {{ song[3] }}
+        </td>
+        <td>
+          {{ song[4] }}
+        </td>
+        <td>
+          <img src='{{ song[5] }}' width='200px' height='200px' style='position:relative; top:0px;'/>
+        </td>
+        <td>
+          <audio controls>
+            <source src='{{ song[6] }}'/>
+          </audio>
+        </td>
+        <td>
+          <button type='button' id='delete' class='btn btn-danger' onclick="$.post('/unsupervised/remove', {song : document.getElementsByClassName('{{ song[1] }}')[0].textContent, playlist : document.getElementsByClassName('playlist')[0].textContent }, function(data){ $('#song_list').html(data); });"> Delete </button>
+        </td>
+      </tr>
+    {% endif %}
+  {% endfor %}
+  </tbody>
+</table>
+<div class ='container'>
+  <div class = 'pull-right'>
+    <button type='button' class='btn btn-success' onclick="$.post('/create_playlist', {playlist : document.getElementsByClassName('playlist')[0].textContent }, function(data){ $('#song_list').html(data); });">Create Playlist</button>
+    <button type='button' class='btn btn-warning' style='padding-left:10px;'onclick="$('#song_list').html('<br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>');">Clear</button>
+  </div>
+</div>

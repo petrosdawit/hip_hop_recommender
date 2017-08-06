@@ -1,0 +1,63 @@
+body{
+  font-family: proxima-nova, sans-serif;
+  font-style: normal;
+  font-weight: 100;
+  background: url('../images/backgroundblackgradient.png') no-repeat center center;
+  background-size:cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+}
+
+.navbar-default .navbar-brand {
+  color:black;
+  font-weight: bold;
+}
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+  color:black;
+  font-weight: bold;
+}
+
+.navbar-default .navbar-nav>li>a{
+  color:black;
+  font-weight: bold;
+}
+.navbar-default .navbar-nav>li>a:hover{
+  color:white;
+}
+
+.navbar-brand{
+  position:relative;
+  top:20px;
+  color:black;
+  font-weight: bold;
+}
+
+.container-fluid{
+  style=background-color: #6AE368;
+}
+
+img{
+  position: relative;
+  top:20px;
+}
+
+.navbar-nav>li>a {
+    position: relative;
+    bottom:30px;
+}
+
+.jumbotron{
+  background-color: white
+  color:black;
+}
+
+#footer-end{
+  color:white;
+}
+
+#footer-end>a{
+  color:white;
+}

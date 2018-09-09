@@ -14,12 +14,11 @@ from datetime import datetime
 from classifier import Classifier
 
 app = Flask(__name__)
-app.secret_key = 'secret_key'
 
 #  Client Keys
-CLIENT_ID = 'client_id'
-CLIENT_SECRET = 'secret_key'
-app.secret_key = 'secret_key
+CLIENT_ID = 'e7a0d1b5196e47778815263f04ae4379'
+CLIENT_SECRET = '5907fe8be8fc4fa8bd93a03b17031afe'
+app.secret_key = '5907fe8be8fc4fa8bd93a03b17031afe'
 
 # Spotify URLS
 SPOTIFY_AUTH_URL = 'https://accounts.spotify.com/authorize'
